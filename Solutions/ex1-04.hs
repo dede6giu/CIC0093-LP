@@ -8,20 +8,20 @@ main = do
 
 -- Resolução do exercício
 histograma :: [String] -> [(String, Int)]
-histograma x = ordHistDec (histConstr (ordCrescente(x)) (1))
+histograma x = ordHistDec (histConstr (ordCrescente x) 1)
 
 ordHistDec [] = []
 ordHistDec (x:xs) | maiorPar x xs = x : ordHistDec xs
                   | otherwise     = ordHistDec (xs ++ [x])
 
 maiorPar _ [] = True
-maiorPar (a,x) ((b,y):bs) | x >= y    = maiorPar (a,x) (bs)
+maiorPar (a,x) ((b,y):bs) | x >= y    = maiorPar (a,x) bs
                           | otherwise = False
 
 histConstr [] _ = []
 histConstr [a] n = [(a,n)]
 histConstr (a:b:s) n | a == b    = histConstr (b:s) (n+1) 
-                     | otherwise = [(a, n)] ++ histConstr (b:s) (1)
+                     | otherwise = (a, n) : histConstr (b:s) 1
 
 ordCrescente [] = []
 ordCrescente (x:xs) | menorElem x xs = x : ordCrescente xs
