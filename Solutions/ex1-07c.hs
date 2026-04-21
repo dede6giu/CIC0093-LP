@@ -33,11 +33,11 @@ matrizTransposta :: [[Int]] -> [[Int]]
 matrizTransposta [] = []
 matrizTransposta (x:xs) = colToLin (tamanho x - 1) (x:xs)
 
-colToLin n _ | n < 0 = []
-colToLin n x = (colToLin (n-1) x) ++ [cadaListaElem n x]
+colToLin n x | n < 0 = []
+             | otherwise = (colToLin (n-1) x) ++ [cadaListaElem n x]
 
 tamanho [] = 0
-tamanho (x:xs) = 1 + tamanho xs
+tamanho (x:xs) = foldr (\x -> (+) 1) 0 xs
 
 cadaListaElem _ [] = []
 cadaListaElem n (x:xs) = elemLista n x : cadaListaElem n xs
