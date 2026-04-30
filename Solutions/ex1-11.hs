@@ -12,19 +12,29 @@ main = do
     print ( teste 2.3  "II" )
     print ( teste 0.1  "II" )
     print ( teste 0    "SR" )
-    print ( teste (-1) "Nota inválida" )
-    print ( teste 11.4 "Nota inválida" )
+    print ( teste (-1) "Invalido" )
+    print ( teste 11.4 "Invalido" )
 
 -- Resolução do exercício
-notaParaMencao :: Float -> String
-notaParaMencao x | 10 >= x && x >= 9 = "SS"
-                 | 9 > x && x >= 7   = "MS"
-                 | 7 > x && x >= 5   = "MM"
-                 | 5 > x && x >= 3   = "MI"
-                 | 3 > x && x > 0    = "II"
-                 | x == 0            = "SR"
-                 | otherwise         = "Nota inválida"
+data Mencao = SR | II | MI | MM | MS | SS | Invalido
 
+notaParaMencao x = stringMencao (valorMencao x)
+
+stringMencao SS = "SS"
+stringMencao MS = "MS"
+stringMencao MM = "MM"
+stringMencao MI = "MI"
+stringMencao II = "II"
+stringMencao SR = "SR"
+stringMencao Invalido = "Invalido"
+
+valorMencao x | 10 >= x && x >= 9 = SS
+              |  9  > x && x >= 7 = MS
+              |  7  > x && x >= 5 = MM
+              |  5  > x && x >= 3 = MI
+              |  3  > x && x >  0 = II
+              | x == 0            = SR
+              | otherwise         = Invalido
 
 -- Funções de teste
 testeCaso x esp = notaParaMencao x == esp
